@@ -13,7 +13,7 @@ export default function Nav() {
         {
           lists.map((list) => (
             <li key={list.id}>
-              <Link href={`/${list.name}`}>{list.name}</Link>
+              <Link href={`/${list.slug}`}>{list.name}</Link>
             </li>
           ))
         }

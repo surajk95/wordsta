@@ -1,0 +1,14 @@
+.wordContainer {
+    width: 600px;
+    max-width: 90%;
+    height: 300px;
+    transition: opacity 0.2s ease-in-out, margin 0.15s ease-in-out;
+    &.left {
+        margin-left: -100%;
+        opacity: 0;
+    }
+    &.right {
+        margin-left: 100%;
+        opacity: 0;
+    }
+}
