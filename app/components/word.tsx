@@ -4,13 +4,29 @@ import { useSwipeable } from 'react-swipeable'
 import { SwipeConfig } from '../config/swipe-config'
 import styles from './word.module.scss'
 
-export default function Word({ words }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [showDetails, setShowDetails] = useState(false)
-  const [orientation, setOrientation] = useState(null)
+interface Word {
+  word: string,
+  difficulty: number,
+  frequency: number,
+  definition: string,
+  example?: string,
+  language: string,
+}
+interface Props {
+  words: Word[]
+}
+
+interface KeyboardEvent {
+  key: string,
+}
+
+export default function Word({ words }: Props) {
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const [showDetails, setShowDetails] = useState<boolean>(false)
+  const [orientation, setOrientation] = useState<string | null>(null)
   console.log(`zzzwords`, words.length)
 
-  const triggerUpdate = useCallback((direction) => {
+  const triggerUpdate = useCallback((direction: string) => {
     console.log(`zzz trigger`, direction)
     switch(direction) {
     case 'up': setShowDetails(true); break;
@@ -21,7 +37,7 @@ export default function Word({ words }) {
     }
   }, [])
 
-  const onKeyDown = useCallback((e) => {
+  const onKeyDown = useCallback((e: KeyboardEvent) => {
     switch(e.key) {
     case 'ArrowLeft': triggerUpdate('left'); break;
     case 'ArrowRight': triggerUpdate('right'); break;
@@ -38,7 +54,7 @@ export default function Word({ words }) {
     }
   }, [onKeyDown])
 
-  const handleSwipe = useCallback((data) => {
+  const handleSwipe = useCallback((data: any) => {
     switch(data.dir) {
     case 'Right': triggerUpdate('right'); break;
     case 'Left': triggerUpdate('left'); break;
@@ -48,7 +64,7 @@ export default function Word({ words }) {
     }
   }, [triggerUpdate])
 
-  const onTap = (data) => {
+  const onTap = () => {
     triggerUpdate('up')
   }
 
@@ -60,15 +76,15 @@ export default function Word({ words }) {
 
   const nextWord = () => {
     setOrientation('right');
-    setCurrentIndex((index) => (index + 1))
     setTimeout(() => setOrientation('left'), 100)
-    setTimeout(() => setOrientation(null), 300)
+    setCurrentIndex((index) => (index + 1))
+    setTimeout(() => setOrientation(null), 200)
   }
 
   const currentWord = words[currentIndex]
 
   return (
-    <div className={`${styles.wordContainer} ${styles[orientation]}`} {...handlers}>
+    <div className={`${styles.wordContainer} ${styles[orientation || '']}`} {...handlers}>
       {currentWord?.word}
       {
         showDetails &&
