@@ -3,8 +3,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { SwipeConfig } from '../config/swipe-config'
 import styles from './word.module.scss'
+import { useAppStore } from '../store/store'
+import { useShallow } from 'zustand/react/shallow'
+import useStore from '../store/use-store'
 
-interface Word {
+export interface Word {
   word: string,
   difficulty: number,
   frequency: number,
@@ -13,29 +16,48 @@ interface Word {
   language: string,
 }
 interface Props {
-  words: Word[]
+  words: Word[],
+  name: string | undefined,
 }
 
 interface KeyboardEvent {
   key: string,
 }
 
-export default function Word({ words }: Props) {
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
-  const [showDetails, setShowDetails] = useState<boolean>(false)
-  const [orientation, setOrientation] = useState<string | null>(null)
-  console.log(`zzzwords`, words.length)
+export default function Word({ words, name }: Props) {
+  const { processedWords, getNextIndex } = useStore({ words, name: name || '' })
+  const { showDetails, currentIndex, init, updateLearnedWords, learnedWords } = useAppStore(useShallow((state) => ({
+    showDetails: state.showDetails,
+    currentIndex: state.currentIndex,
+    init: state.init,
+    updateLearnedWords: state.updateLearnedWords,
+    learnedWords: state.learnedWords,
+  })))
+  const [localShowDetails, setLocalShowDetails] = useState<boolean>(false)
+
+  // console.log(`zzzwords`, 'fdfdf', processedWords)
+
+  const nextWord = useCallback(() => {
+    console.log(`zzz nextWord`, learnedWords)
+    getNextIndex()
+  }, [getNextIndex])
+
+  const pass = useCallback(() => {
+    console.log(`zzz nextWord`)
+    updateLearnedWords(processedWords[currentIndex].word, name)
+    nextWord()
+  }, [updateLearnedWords, processedWords, currentIndex, nextWord, name])
 
   const triggerUpdate = useCallback((direction: string) => {
     console.log(`zzz trigger`, direction)
     switch(direction) {
-    case 'up': setShowDetails(true); break;
-    case 'down': setShowDetails(false); break;
-    case 'right': nextWord(); break;
+    case 'up': setLocalShowDetails(true); break;
+    case 'down': setLocalShowDetails(false); break;
+    case 'right': pass(); break;
     case 'left': nextWord(); break;
     default: break;
     }
-  }, [])
+  }, [nextWord, pass])
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
     switch(e.key) {
@@ -46,13 +68,6 @@ export default function Word({ words }: Props) {
     default: break;
     }
   }, [triggerUpdate])
-
-  useEffect(() => {
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [onKeyDown])
 
   const handleSwipe = useCallback((data: any) => {
     switch(data.dir) {
@@ -74,22 +89,39 @@ export default function Word({ words }: Props) {
     onTap: () => {onTap();}
   });
 
-  const nextWord = () => {
-    setOrientation('right');
-    setTimeout(() => setOrientation('left'), 100)
-    setCurrentIndex((index) => (index + 1))
-    setTimeout(() => setOrientation(null), 200)
+  useEffect(() => {
+    if(!init) {
+      return
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [onKeyDown, init])
+
+  useEffect(() => {
+    if(init && currentIndex === -1) {
+      console.log(`zzz currentIndex === -1`, learnedWords)
+      nextWord()
+    }
+  }, [currentIndex, nextWord, learnedWords, init])
+
+  const currentWord = processedWords[currentIndex]
+
+  console.log(`zzz currentwords`, )
+
+  if(!init) {
+    return <div>Loading...</div>
   }
 
-  const currentWord = words[currentIndex]
-
   return (
-    <div className={`${styles.wordContainer} ${styles[orientation || '']}`} {...handlers}>
+    <div className={`${styles.wordContainer}`} {...handlers}>
       {currentWord?.word}
       {
         showDetails &&
         <div className="details">
-          {currentWord?.definition}
+          <div className="definition">{currentWord?.definition}</div>
+          <div className="example">{currentWord?.example}</div>
         </div>
       }
     </div>
