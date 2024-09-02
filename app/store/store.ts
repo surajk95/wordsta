@@ -39,7 +39,18 @@ export const useAppStore = create<AppState>((set) => ({
     const { showDetails, sort, sortDirection } = parsedLocalConfig
     console.log(`zzz initStore`, name, parsedLearnedWords, parsedLocalConfig)
     localStorage.setItem('currentList', name)
-    return { init: true, name, sort, sortDirection, showDetails, words, learnedWords: parsedLearnedWords }
+    return {
+      init: true,
+      name,
+      sort,
+      sortDirection,
+      showDetails,
+      words,
+      learnedWords: {
+        [name]: parsedLearnedWords
+      },
+      currentIndex: -1,
+    }
   }),
   setConfig: (key: string, value: any) => set(state => {
     const newConfig = { ...state.config, [key]: value }
@@ -55,20 +66,24 @@ export const useAppStore = create<AppState>((set) => ({
     case 'sortDirection':
       newConfig.sortDirection = value
       return { config: newConfig, sortDirection: value, currentIndex: -1 }
+    case 'reset':
+      localStorage.removeItem(`learnedWords-${value}`)
+      return { config: newConfig, reset: value }
     default: {
       return { config: newConfig }
     }
     }
   }),
   updateLearnedWords: (word: string, name: string) => set(state => {
+    const targetLearnedWords = {
+      ...(state.learnedWords[name] || {}),
+      [word]: true,
+    }
     const newLearnedWords = {
       ...state.learnedWords,
-      [name]: {
-        ...(state.learnedWords[name] || {}),
-        [word]: true,
-      },
+      [name]: targetLearnedWords,
     }
-    localStorage.setItem(`learnedWords-${name}`, JSON.stringify(newLearnedWords))
+    localStorage.setItem(`learnedWords-${name}`, JSON.stringify(targetLearnedWords))
     return { learnedWords: newLearnedWords }
   }),
 }))

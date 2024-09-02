@@ -2,6 +2,7 @@
 
 import { useShallow } from "zustand/react/shallow"
 import { useAppStore } from "../store/store"
+import { lists } from "../config/lists"
 
 export default function Controls() {
   const { showDetails, setConfig } = useAppStore(useShallow((state) => ({
@@ -22,6 +23,14 @@ export default function Controls() {
         Sort direction:
         <button onClick={() => setConfig('sortDirection', 'asc')}>Ascending</button>
         <button onClick={() => setConfig('sortDirection', 'desc')}>Descending</button>
+      </div>
+      <div>
+        Reset progress
+        {
+          lists.map((list) => (
+            <button key={list.id} onClick={() => setConfig('reset', list.slug)}>{list.name}</button>
+          ))
+        }
       </div>
     </div>
   )

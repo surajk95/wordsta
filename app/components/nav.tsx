@@ -5,11 +5,6 @@ export default function Nav() {
   return (
     <nav>
       <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>About</li>
-        <li>Contact</li>
         {
           lists.map((list) => (
             <li key={list.id}>
@@ -17,6 +12,9 @@ export default function Nav() {
             </li>
           ))
         }
+        <li>
+          <Link href="/about">About</Link>
+        </li>
       </ul>
     </nav>
   )
