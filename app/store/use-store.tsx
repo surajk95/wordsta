@@ -18,14 +18,12 @@ export default function useStore({ words, name }: { words: Word[], name: string 
   })));
 
   useEffect(() => {
-    console.log(`zzz init usestore`, name)
     if(name && words) {
       initStore(name, words)
     }
   }, [initStore, name, words])
 
   const processedWords = useMemo(() => {
-    console.log(`zzz processing config`, sort, sortDirection)
     return words
       .sort((a: Word, b: Word) => {
         if (sort === 'alphabetical') {
@@ -42,7 +40,6 @@ export default function useStore({ words, name }: { words: Word[], name: string 
   }, [words, sort, sortDirection]);
 
   const getNextIndex = useCallback(() => {
-    console.log(`zzz getNextIndex`, currentIndex, learnedWords, name)
     let newIndex = currentIndex === words.length - 1 ? 0 : currentIndex + 1
     if(!learnedWords[name]) {
       updateIndex(newIndex)
@@ -57,9 +54,6 @@ export default function useStore({ words, name }: { words: Word[], name: string 
       }
     } while(Object.keys(learnedWords[name]).length !== words.length)
   }, [currentIndex, learnedWords, name, words, processedWords, updateIndex])
-
-
-  console.log(`zzz use-store`)
 
   return { processedWords, getNextIndex }
 }

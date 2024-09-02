@@ -37,7 +37,6 @@ export const useAppStore = create<AppState>((set) => ({
     const learnedWords = localStorage.getItem(`learnedWords-${name}`) || '{}'
     const parsedLearnedWords = JSON.parse(learnedWords)
     const { showDetails, sort, sortDirection } = parsedLocalConfig
-    console.log(`zzz initStore`, name, parsedLearnedWords, parsedLocalConfig)
     localStorage.setItem('currentList', name)
     return {
       init: true,
@@ -71,7 +70,6 @@ export const useAppStore = create<AppState>((set) => ({
         ...newConfig.learnedWords,
         [value]: {}
       }
-      console.log(`zzz after reset newconfig`, newConfig)
       return { config: newConfig, learnedWords: newConfig.learnedWords, currentIndex: -1 }
     default: {
       return { config: newConfig }

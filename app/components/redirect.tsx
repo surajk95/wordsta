@@ -6,7 +6,7 @@ export default function Redirect() {
   const router = useRouter()
   useLayoutEffect(() => {
     let currentList = localStorage.getItem('currentList')
-    console.log(`zzz redirect`, currentList)
+
     if(!currentList) {
       currentList = 'high-frequency-gre'
     }

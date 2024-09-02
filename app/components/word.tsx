@@ -35,21 +35,17 @@ export default function Word({ words, name }: Props) {
   })))
   const [localShowDetails, setLocalShowDetails] = useState<boolean>(false)
 
-  // console.log(`zzzwords`, 'fdfdf', processedWords)
-
   const nextWord = useCallback(() => {
     getNextIndex()
     setLocalShowDetails(false)
   }, [getNextIndex])
 
   const pass = useCallback(() => {
-    console.log(`zzz nextWord`)
     updateLearnedWords(processedWords[currentIndex].word, name)
     nextWord()
   }, [updateLearnedWords, processedWords, currentIndex, nextWord, name])
 
   const triggerUpdate = useCallback((direction: string) => {
-    console.log(`zzz trigger`, direction)
     switch(direction) {
     case 'up': setLocalShowDetails(true); break;
     case 'down': setLocalShowDetails(false); break;
@@ -101,14 +97,11 @@ export default function Word({ words, name }: Props) {
 
   useEffect(() => {
     if(init && currentIndex === -1) {
-      console.log(`zzz currentIndex === -1`, learnedWords)
       nextWord()
     }
   }, [currentIndex, nextWord, learnedWords, init])
 
   const currentWord = processedWords[currentIndex]
-
-  console.log(`zzz currentwords`, currentIndex)
 
   if(!init) {
     return <div>Loading...</div>
