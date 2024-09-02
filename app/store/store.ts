@@ -55,7 +55,6 @@ export const useAppStore = create<AppState>((set) => ({
   setConfig: (key: string, value: any) => set(state => {
     const newConfig = { ...state.config, [key]: value }
     localStorage.setItem('config', JSON.stringify(newConfig))
-    console.log(`zzz resettt config`, newConfig, key, value)
     switch(key) {
     case 'showDetails':
       newConfig.showDetails = value
@@ -68,7 +67,12 @@ export const useAppStore = create<AppState>((set) => ({
       return { config: newConfig, sortDirection: value, currentIndex: -1 }
     case 'reset':
       localStorage.removeItem(`learnedWords-${value}`)
-      return { config: newConfig, reset: value }
+      newConfig.learnedWords = {
+        ...newConfig.learnedWords,
+        [value]: {}
+      }
+      console.log(`zzz after reset newconfig`, newConfig)
+      return { config: newConfig, learnedWords: newConfig.learnedWords, currentIndex: -1 }
     default: {
       return { config: newConfig }
     }
