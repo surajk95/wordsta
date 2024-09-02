@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/nav";
 import Controls from "./components/controls";
+import { Progress } from "./components/progress";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Nav />
         <Controls />
         {children}
+        <Progress />
       </body>
     </html>
   );
