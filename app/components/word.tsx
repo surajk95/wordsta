@@ -38,8 +38,8 @@ export default function Word({ words, name }: Props) {
   // console.log(`zzzwords`, 'fdfdf', processedWords)
 
   const nextWord = useCallback(() => {
-    console.log(`zzz nextWord`, learnedWords)
     getNextIndex()
+    setLocalShowDetails(false)
   }, [getNextIndex])
 
   const pass = useCallback(() => {
@@ -108,7 +108,7 @@ export default function Word({ words, name }: Props) {
 
   const currentWord = processedWords[currentIndex]
 
-  console.log(`zzz currentwords`, )
+  console.log(`zzz currentwords`, currentIndex)
 
   if(!init) {
     return <div>Loading...</div>
@@ -118,7 +118,7 @@ export default function Word({ words, name }: Props) {
     <div className={`${styles.wordContainer}`} {...handlers}>
       {currentWord?.word}
       {
-        showDetails &&
+        (showDetails || localShowDetails) &&
         <div className="details">
           <div className="definition">{currentWord?.definition}</div>
           <div className="example">{currentWord?.example}</div>

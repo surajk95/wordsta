@@ -31,13 +31,14 @@ export const useAppStore = create<AppState>((set) => ({
   learnedWords: {},
   updateIndex: (newIndex: number) => set(state => ({ currentIndex: newIndex })),
   setShowDetails: (flag: boolean) => set({ showDetails: flag }),
-  initStore: (name: string | undefined, words: Word[]) => set(state => {
+  initStore: (name: string, words: Word[]) => set(state => {
     let localConfig = localStorage.getItem('config') || JSON.stringify(defaultConfig)
     let parsedLocalConfig = JSON.parse(localConfig)
     const learnedWords = localStorage.getItem(`learnedWords-${name}`) || '{}'
     const parsedLearnedWords = JSON.parse(learnedWords)
     const { showDetails, sort, sortDirection } = parsedLocalConfig
     console.log(`zzz initStore`, name, parsedLearnedWords, parsedLocalConfig)
+    localStorage.setItem('currentList', name)
     return { init: true, name, sort, sortDirection, showDetails, words, learnedWords: parsedLearnedWords }
   }),
   setConfig: (key: string, value: any) => set(state => {
