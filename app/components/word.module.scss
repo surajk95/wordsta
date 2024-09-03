@@ -12,3 +12,17 @@
         opacity: 0;
     }
 }
+
+.draggable {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    opacity: 1;
+    &.pass {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+    &.fail {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+}
