@@ -6,7 +6,7 @@ export function Draggable(props: {children: React.ReactNode, status: string | nu
     id: 'draggable',
   });
   const style = {
-    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0) rotate(${Math.round(transform.x/10)}deg)` : undefined,
     transition: 'opacity 1s ease',
   }
 
