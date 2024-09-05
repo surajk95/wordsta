@@ -1,6 +1,5 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { useSwipeable } from 'react-swipeable'
 import { DndContext, DragCancelEvent, DragEndEvent, DragMoveEvent, DragStartEvent, useSensors } from '@dnd-kit/core'
 import {
   restrictToHorizontalAxis,
@@ -104,25 +103,9 @@ export default function Word({ words, name }: Props) {
     }
   }, [triggerUpdate])
 
-  const handleSwipe = useCallback((data: any) => {
-    switch(data.dir) {
-    case 'Right': triggerUpdate('right'); break;
-    case 'Left': triggerUpdate('left'); break;
-    case 'Up': triggerUpdate('up'); break;
-    case 'Down': triggerUpdate('down'); break;
-    default: break;
-    }
-  }, [triggerUpdate])
-
   const onTap = () => {
     triggerUpdate('up')
   }
-
-  const handlers = useSwipeable({
-    onSwiped: (eventData) => {handleSwipe(eventData)},
-    ...SwipeConfig,
-    onTap: () => {onTap();}
-  });
 
   useEffect(() => {
     if(!init) {
