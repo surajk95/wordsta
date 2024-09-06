@@ -52,6 +52,7 @@ export const useAppStore = create<AppState>((set) => ({
     }
   }),
   setConfig: (key: string, value: any) => set(state => {
+    console.log('setConfig', key, value)
     const newConfig = { ...state.config, [key]: value }
     localStorage.setItem('config', JSON.stringify(newConfig))
     switch(key) {
