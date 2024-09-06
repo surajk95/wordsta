@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "./components/nav";
 import Controls from "./components/controls";
 import { Progress } from "./components/progress";
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Controls />
         {children}
         <Progress />
+        <Toaster />
       </body>
     </html>
   );

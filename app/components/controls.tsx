@@ -21,18 +21,21 @@ import {
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import Link from "next/link"
 import React from "react"
-import { cn } from "@/lib/utils"
+import { ListItem } from "./nav"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/hooks/use-toast"
+
 
 export default function Controls() {
+  const { toast } = useToast()
   const { showDetails, setConfig, config, name } = useAppStore(useShallow((state) => ({
     setConfig: state.setConfig,
     showDetails: state.showDetails,
@@ -69,7 +72,19 @@ export default function Controls() {
           </DialogHeader>
           <DialogDescription />
           <div className="grid gap-4 py-4">
-            <button onClick={() => setConfig('showDetails', !showDetails )}>{showDetails ? 'Hide Details by default' : 'Show Details by default'}</button>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="showDetails"
+                checked={showDetails}
+                onCheckedChange={() => setConfig('showDetails', !showDetails)}
+              />
+              <label
+                htmlFor="showDetails"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Show word meaning & example by default
+              </label>
+            </div>
             <div>
               <label>Sort by:</label>
               <Select onValueChange={(value) => setConfig('sort', value)} value={config.sort}>
@@ -97,10 +112,22 @@ export default function Controls() {
               </Select>
             </div>
             <div>
-              <label>Reset progress</label>
+              <div>Reset progress</div>
               {
                 lists.map((list) => (
-                  <button key={list.id} onClick={() => setConfig('reset', list.slug)}>{list.name}</button>
+                  <Button
+                    key={list.id}
+                    className="w-full my-2"
+                    onClick={() => {
+                      setConfig('reset', list.slug)
+                      toast({
+                        title: "Progress reset",
+                        description: `Progress for ${list.name} has been reset`,
+                      })
+                    }}
+                  >
+                    {list.name}
+                  </Button>
                 ))
               }
             </div>
@@ -110,29 +137,3 @@ export default function Controls() {
     </>
   )
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  )
-})
-ListItem.displayName = "ListItem"
