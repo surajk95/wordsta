@@ -1,18 +1,38 @@
 import Link from 'next/link'
-import { lists } from '../config/lists'
-import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import styles from "./nav.module.scss"
 
 export default function Nav() {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className={styles.header}>
+      <h1 className={styles.appTitle}>
+        <Link href="/">Wordsta</Link>
+      </h1>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link href="/about" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="https://playerofwords.vercel.app/" target="_blank" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>Player of Words</NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
   )
 }
 

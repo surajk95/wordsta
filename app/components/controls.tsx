@@ -32,6 +32,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
+import styles from "./controls.module.scss"
+
 
 
 export default function Controls() {
@@ -43,17 +45,17 @@ export default function Controls() {
     name: state.name,
   })))
   return (
-    <>
+    <div className={styles.controls}>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>{name}</NavigationMenuTrigger>
+            <NavigationMenuTrigger>{lists.find((list) => list.slug === name)?.name}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {
                   lists.map((list) => (
                     <ListItem key={list.id} title={list.name} href={`/${list.slug}`}>
-                      {list.name}
+                      {list.description}
                     </ListItem>
                   ))
                 }
@@ -64,7 +66,7 @@ export default function Controls() {
       </NavigationMenu>
       <Dialog>
         <DialogTrigger asChild>
-          <button>Settings</button>
+          <Button variant="outline">Settings</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -72,7 +74,7 @@ export default function Controls() {
           </DialogHeader>
           <DialogDescription />
           <div className="grid gap-4 py-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 my-5">
               <Checkbox
                 id="showDetails"
                 checked={showDetails}
@@ -85,31 +87,33 @@ export default function Controls() {
                 Show word meaning & example by default
               </label>
             </div>
-            <div>
-              <label>Sort by:</label>
-              <Select onValueChange={(value) => setConfig('sort', value)} value={config.sort}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Sort" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="difficulty">Difficulty</SelectItem>
-                  <SelectItem value="alphabetical">Alphabetical</SelectItem>
-                  <SelectItem value="frequency">Frequency</SelectItem>
-                  <SelectItem value="random">Random</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label>Sort direction:</label>
-              <Select onValueChange={(value) => setConfig('sortDirection', value)} value={config.sortDirection}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Sort direction" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="asc">Ascending</SelectItem>
-                  <SelectItem value="desc">Descending</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex justify-between space-x-2 my-5">
+              <div>
+                <label>Sort by</label>
+                <Select onValueChange={(value) => setConfig('sort', value)} value={config.sort}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Sort" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="difficulty">Difficulty</SelectItem>
+                    <SelectItem value="alphabetical">Alphabetical</SelectItem>
+                    <SelectItem value="frequency">Frequency</SelectItem>
+                    <SelectItem value="random">Random</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label>Sort direction</label>
+                <Select onValueChange={(value) => setConfig('sortDirection', value)} value={config.sortDirection}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Sort direction" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="asc">Ascending</SelectItem>
+                    <SelectItem value="desc">Descending</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div>
               <div>Reset progress</div>
@@ -118,6 +122,7 @@ export default function Controls() {
                   <Button
                     key={list.id}
                     className="w-full my-2"
+                    variant="outline"
                     onClick={() => {
                       setConfig('reset', list.slug)
                       toast({
@@ -134,6 +139,6 @@ export default function Controls() {
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   )
 }

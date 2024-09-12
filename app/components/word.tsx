@@ -104,7 +104,7 @@ export default function Word({ words, name }: Props) {
   }, [triggerUpdate])
 
   const onTap = () => {
-    triggerUpdate('up')
+    triggerUpdate(localShowDetails ? 'down' : 'up')
   }
 
   useEffect(() => {
@@ -160,32 +160,33 @@ export default function Word({ words, name }: Props) {
       onDragMove={handleDragMove}
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
-      modifiers={[restrictToHorizontalAxis, restrictToWindowEdges]}
+      modifiers={[restrictToHorizontalAxis]}
       sensors={sensors}
     >  
       <Draggable status={status}>
-        <div className={`${styles.wordContainer}`}>
-          {
-            isMoving === 'right' &&
-            <div className={styles.right}>
-              I know this word
-            </div>
-          }
-          {
-            isMoving === 'left' &&
-            <div className={styles.left}>
-              I don&apos;t know this word
-            </div>
-          }
+        <div className={`${styles.wordContainer}`} onClick={onTap}>
+          <div className={`${styles.indicator} ${styles.right} ${isMoving === 'right' ? styles.show : ''}`}>
+          </div>    
+          <div className={`${styles.indicator} ${styles.left} ${isMoving === 'left' ? styles.show : ''}`}>
+          </div>
           <div className={styles.word}>
-            {currentWord?.word}
-            {
-              (showDetails || localShowDetails) &&
-                <div className="details">
-                  <div className="definition">{currentWord?.definition}</div>
-                  <div className="example">{currentWord?.example}</div>
+            <h2 className={styles.title}>{currentWord?.word}</h2>
+            <div className={`${styles.details} ${showDetails || localShowDetails ? styles.show : styles.hide}`}>
+              {
+                currentWord?.definition &&
+                <div className={styles.definition}>
+                  <h3>Definition</h3>
+                  <p>{currentWord?.definition}</p>
                 </div>
-            }
+              }
+              {
+                currentWord?.example &&
+                <div className={styles.example}>
+                  <h3>Example</h3>
+                  <p>{currentWord?.example}</p>
+                </div>
+              }
+            </div>
           </div>
         </div>
       </Draggable>

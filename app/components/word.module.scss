@@ -1,22 +1,85 @@
 .wordContainer {
-    width: 600px;
-    max-width: 90%;
-    height: 300px;
+    position: relative;
+    width: 100%;
+    height: 100%;
     transition: opacity 0.1s ease-in-out, margin 0.2s ease-in-out;
-    &.left {
-        margin-left: -100%;
-        opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    flex-direction: column;
+    overflow: hidden;
+    .indicator {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0px;
+        transition: height 0.1s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5px;
+        font-weight: bold;
+        overflow: hidden;
+        &.show {
+            height: 10px;
+            transition: height 0.4s ease-in-out;
+        }
+        &.right {
+            background: #00ff00;
+        }
+        &.left {
+            background: #ff0000;
+        }
     }
-    &.right {
-        margin-left: 100%;
+    .word {
+        text-align: center;
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    }
+    .details {
+        font-size: 1rem;
+        font-weight: normal;
         opacity: 0;
+        height: 0;
+        width: 90%;
+        text-align: left;
+        transition: opacity 0.2s ease-in-out, height 0.2s ease-in-out;
+        overflow: visible;
+        &.show {
+            opacity: 1;
+            height: 200px;
+        }
+        h3 {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .definition {
+            margin-bottom: 1rem;
+            p {
+                font-weight: 500;
+            }
+        }
+        .example {
+            font-size: 0.8rem;
+            h3 {
+                text-decoration: underline;
+            }
+        }
     }
 }
 
 .draggable {
+    opacity: 1;
+    width: 600px;
+    max-width: 90%;
+    height: 300px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    opacity: 1;
+    transition: opacity 1s ease-in-out;
     &.pass {
         transform: translateX(100vw);
         opacity: 0;
@@ -24,5 +87,12 @@
     &.fail {
         transform: translateX(-100vw);
         opacity: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .draggable {
+        height: 500px;
+        max-height: 70vh;
     }
 }

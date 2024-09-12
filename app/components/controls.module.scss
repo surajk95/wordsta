@@ -1,0 +1,13 @@
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .controls {
+        padding: 1rem 0.5rem;
+    }
+}
