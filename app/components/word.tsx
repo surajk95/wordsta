@@ -48,7 +48,7 @@ export default function Word({ words, name }: Props) {
     mouseSensor,
     touchSensor,
   );
-  
+
   const { processedWords, getNextIndex } = useStore({ words, name: name || '' })
   const { showDetails, currentIndex, init, updateLearnedWords, learnedWords } = useAppStore(useShallow((state) => ({
     showDetails: state.showDetails,
@@ -82,22 +82,22 @@ export default function Word({ words, name }: Props) {
   }, [nextWord])
 
   const triggerUpdate = useCallback((direction: string) => {
-    switch(direction) {
-    case 'up': setLocalShowDetails(true); break;
-    case 'down': setLocalShowDetails(false); break;
-    case 'right': pass(); break;
-    case 'left': nextWord(); break;
-    default: break;
+    switch (direction) {
+      case 'up': setLocalShowDetails(true); break;
+      case 'down': setLocalShowDetails(false); break;
+      case 'right': pass(); break;
+      case 'left': nextWord(); break;
+      default: break;
     }
   }, [nextWord, pass])
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
-    switch(e.key) {
-    case 'ArrowLeft': triggerUpdate('left'); break;
-    case 'ArrowRight': triggerUpdate('right'); break;
-    case 'ArrowUp': triggerUpdate('up'); break;
-    case 'ArrowDown': triggerUpdate('down'); break;
-    default: break;
+    switch (e.key) {
+      case 'ArrowLeft': triggerUpdate('left'); break;
+      case 'ArrowRight': triggerUpdate('right'); break;
+      case 'ArrowUp': triggerUpdate('up'); break;
+      case 'ArrowDown': triggerUpdate('down'); break;
+      default: break;
     }
   }, [triggerUpdate])
 
@@ -106,7 +106,7 @@ export default function Word({ words, name }: Props) {
   }
 
   useEffect(() => {
-    if(!init) {
+    if (!init) {
       return
     }
     document.addEventListener('keydown', onKeyDown)
@@ -116,7 +116,7 @@ export default function Word({ words, name }: Props) {
   }, [onKeyDown, init])
 
   useEffect(() => {
-    if(init && currentIndex === -1) {
+    if (init && currentIndex === -1) {
       nextWord()
     }
   }, [currentIndex, nextWord, learnedWords, init])
@@ -124,18 +124,18 @@ export default function Word({ words, name }: Props) {
   const currentWord = currentIndex === null ? null : processedWords[currentIndex]
 
   const handleDragEnd = (event: DragEndEvent) => {
-    if(event.delta.x > 100) {
+    if (event.delta.x > 100) {
       pass()
-    } else if(event.delta.x < -100) {
+    } else if (event.delta.x < -100) {
       fail()
     }
     setIsMoving(null)
   }
 
   const handleDragMove = (event: DragMoveEvent) => {
-    if(event.delta.x > 50 && isMoving !== 'right') {
+    if (event.delta.x > 50 && isMoving !== 'right') {
       setIsMoving('right')
-    } else if(event.delta.x < -50 && isMoving !== 'left') {
+    } else if (event.delta.x < -50 && isMoving !== 'left') {
       setIsMoving('left')
     }
   }
@@ -144,21 +144,21 @@ export default function Word({ words, name }: Props) {
     setIsMoving(null)
   }
 
-  if(!init) {
+  if (!init) {
     return <div>Loading...</div>
   }
 
-  if(currentIndex === null) {
+  if (currentIndex === null) {
     return (
-    <div>
-      <h1>You have learned all words in this list.</h1>
-      <br/>
-      <h3>Change the list from the dropdown menu above, or reset progress by going to Settings.</h3>
-    </div>
+      <div>
+        <h1>You have learned all words in this list.</h1>
+        <br />
+        <h3>Change the list from the dropdown menu above, or reset progress by going to Settings.</h3>
+      </div>
     )
   }
 
-  console.log('status', status, currentIndex, currentWord)
+  // console.log('status', status, currentIndex, currentWord)
 
   return (
     <DndContext
@@ -167,9 +167,9 @@ export default function Word({ words, name }: Props) {
       onDragCancel={handleDragCancel}
       modifiers={[restrictToHorizontalAxis]}
       sensors={sensors}
-    >  
-      <Draggable status={status}>
-        <div className={`${styles.wordContainer}`} onClick={onTap}>
+    >
+      <Draggable status={status} onClick={onTap} currentIndex={currentIndex}>
+        <div className={`${styles.wordContainer}`}>
           <div className={styles.word}>
             <h2 className={`${styles.title} ${isMoving === 'left' ? styles.left : isMoving === 'right' ? styles.right : ''}`}>
               {isMoving === 'left' ? 'I don\'t know this word' : isMoving === 'right' ? 'I know this word' : currentWord?.word}
@@ -192,10 +192,9 @@ export default function Word({ words, name }: Props) {
             </div>
           </div>
           <div className={`${styles.indicator} ${styles.right} ${isMoving === 'right' ? styles.show : ''}`}>
-          </div>    
+          </div>
           <div className={`${styles.indicator} ${styles.left} ${isMoving === 'left' ? styles.show : ''}`}>
           </div>
-          <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-primary opacity-10 rounded-full transform rotate-45"></div>
         </div>
       </Draggable>
     </DndContext>

@@ -31,26 +31,26 @@ export default function Info() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Controls</DialogTitle>
-          <DialogDescription>
-            This is how you can control the app.
-          </DialogDescription>
         </DialogHeader>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          <ul>
-            <li className="mb-4">
-              <span className="font-bold">Swipe left / Left Arrow</span> - <span className="text-red-500">I don't know this word</span>
-              <p>The word will be shown again next time you go through the list.</p>
-            </li>
-            <li className="mb-4">
-              <span className="font-bold">Swipe right / Right Arrow</span> - <span className="text-green-500">I know this word</span>
-              <p>The word will be added to your learned words. It will not be shown again (until you reset progress).</p>
-            </li>
-            <li className="mb-4">
-              <span className="font-bold">Tap / Click / Up Arrow / Down Arrow</span> - <span className="text-blue-500">Toggle meaning and examples</span>
-              <p>You can also tap/click the card or press the Up Arrow to show/hide details.</p>
-            </li>
-          </ul>
-        </p>
+        <div className="space-y-6 text-gray-600 dark:text-gray-300">
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Swipe left / Left Arrow</h3>
+            <p className="text-sm"><span className="font-medium text-red-500 dark:text-red-400">I don't know this word</span></p>
+            <p className="text-xs">The word will be shown again next time you go through the list.</p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Swipe right / Right Arrow</h3>
+            <p className="text-sm"><span className="font-medium text-green-500 dark:text-green-400">I know this word</span></p>
+            <p className="text-xs">The word will be added to your learned words. It will not be shown again (until you reset progress).</p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Tap / Click / Up Arrow / Down Arrow</h3>
+            <p className="text-sm"><span className="font-medium text-blue-500 dark:text-blue-400">Toggle meaning and examples</span></p>
+            <p className="text-xs">You can also tap/click the card or press the Up Arrow to show/hide details.</p>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )

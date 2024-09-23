@@ -16,26 +16,33 @@ import Controls from './controls'
 export default function Nav() {
   return (
     <>
-    <div className={styles.header}>
-      <h1 className={styles.appTitle}>
-        <Link href="/">Wordsta</Link>
-      </h1>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/about" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="https://playerofwords.vercel.app/" target="_blank" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>Player of Words</NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
-    <Controls />
+      <div className={styles.header}>
+        <h1 className={styles.appTitle}>
+          <Link href="/">Wordsta</Link>
+        </h1>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <Link href="/about" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="https://playerofwords.vercel.app/" target="_blank" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Player of Words</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <iframe
+          src="https://ghbtns.com/github-btn.html?user=fvrtrp&repo=wordsta&type=star&count=true&size=large"
+          width="170"
+          height="30"
+          title="GitHub"
+          className="ml-auto"
+        />
+      </div>
+      <Controls />
     </>
   )
 }

@@ -25,14 +25,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import Link from "next/link"
-import React from "react"
+import React, { useMemo } from "react"
 import { ListItem } from "./nav"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
 import styles from "./controls.module.scss"
+import { usePathname } from "next/navigation"
 
 
 
@@ -44,6 +44,12 @@ export default function Controls() {
     config: state.config,
     name: state.name,
   })))
+
+  const pathname = usePathname()
+
+  const nameItem = useMemo(() => lists.find((list) => list.slug === pathname.split('/').pop()), [pathname])
+  if (!nameItem) return null
+
   return (
     <div className={styles.controls}>
       <NavigationMenu>
