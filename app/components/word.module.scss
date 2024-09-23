@@ -38,6 +38,12 @@
         .title {
             font-size: 2rem;
             font-weight: bold;
+            &.left {
+                color: #ff0000;
+            }
+            &.right {
+                color: #00ff00;
+            }
         }
     }
     .details {
@@ -90,9 +96,16 @@
     }
 }
 
+.infoButton {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 2;
+}
+
 @media (max-width: 700px) {
     .draggable {
         height: 500px;
-        max-height: 70vh;
+        max-height: 60vh;
     }
 }

@@ -5,7 +5,7 @@ import {
   restrictToHorizontalAxis,
   restrictToWindowEdges,
 } from '@dnd-kit/modifiers'
-import { MouseSensor, TouchSensor, KeyboardSensor, useSensor } from '@dnd-kit/core'
+import { MouseSensor, TouchSensor, useSensor } from '@dnd-kit/core'
 import { Draggable } from './draggable'
 import { SwipeConfig } from '../config/swipe-config'
 import styles from './word.module.scss'
@@ -44,11 +44,9 @@ export default function Word({ words, name }: Props) {
       tolerance: 10,
     },
   })
-  const keyboardSensor = useSensor(KeyboardSensor)
   const sensors = useSensors(
     mouseSensor,
     touchSensor,
-    keyboardSensor,
   );
   
   const { processedWords, getNextIndex } = useStore({ words, name: name || '' })
@@ -74,7 +72,7 @@ export default function Word({ words, name }: Props) {
 
   const pass = useCallback(() => {
     setStatus('pass')
-    updateLearnedWords(processedWords[currentIndex].word, name)
+    updateLearnedWords(processedWords[currentIndex]?.word, name)
     nextWord()
   }, [updateLearnedWords, processedWords, currentIndex, nextWord, name])
 
@@ -123,10 +121,9 @@ export default function Word({ words, name }: Props) {
     }
   }, [currentIndex, nextWord, learnedWords, init])
 
-  const currentWord = processedWords[currentIndex]
+  const currentWord = currentIndex === null ? null : processedWords[currentIndex]
 
   const handleDragEnd = (event: DragEndEvent) => {
-    console.log('drag end', event)
     if(event.delta.x > 100) {
       pass()
     } else if(event.delta.x < -100) {
@@ -136,7 +133,6 @@ export default function Word({ words, name }: Props) {
   }
 
   const handleDragMove = (event: DragMoveEvent) => {
-    console.log('drag move', event)
     if(event.delta.x > 50 && isMoving !== 'right') {
       setIsMoving('right')
     } else if(event.delta.x < -50 && isMoving !== 'left') {
@@ -145,7 +141,6 @@ export default function Word({ words, name }: Props) {
   }
 
   const handleDragCancel = (event: DragCancelEvent) => {
-    console.log('drag cancel', event)
     setIsMoving(null)
   }
 
@@ -153,7 +148,17 @@ export default function Word({ words, name }: Props) {
     return <div>Loading...</div>
   }
 
-  console.log('status', status)
+  if(currentIndex === null) {
+    return (
+    <div>
+      <h1>You have learned all words in this list.</h1>
+      <br/>
+      <h3>Change the list from the dropdown menu above, or reset progress by going to Settings.</h3>
+    </div>
+    )
+  }
+
+  console.log('status', status, currentIndex, currentWord)
 
   return (
     <DndContext
@@ -165,13 +170,11 @@ export default function Word({ words, name }: Props) {
     >  
       <Draggable status={status}>
         <div className={`${styles.wordContainer}`} onClick={onTap}>
-          <div className={`${styles.indicator} ${styles.right} ${isMoving === 'right' ? styles.show : ''}`}>
-          </div>    
-          <div className={`${styles.indicator} ${styles.left} ${isMoving === 'left' ? styles.show : ''}`}>
-          </div>
           <div className={styles.word}>
-            <h2 className={styles.title}>{currentWord?.word}</h2>
-            <div className={`${styles.details} ${showDetails || localShowDetails ? styles.show : styles.hide}`}>
+            <h2 className={`${styles.title} ${isMoving === 'left' ? styles.left : isMoving === 'right' ? styles.right : ''}`}>
+              {isMoving === 'left' ? 'I don\'t know this word' : isMoving === 'right' ? 'I know this word' : currentWord?.word}
+            </h2>
+            <div className={`${styles.details} ${((showDetails || localShowDetails) && isMoving === null) ? styles.show : styles.hide}`}>
               {
                 currentWord?.definition &&
                 <div className={styles.definition}>
@@ -188,6 +191,11 @@ export default function Word({ words, name }: Props) {
               }
             </div>
           </div>
+          <div className={`${styles.indicator} ${styles.right} ${isMoving === 'right' ? styles.show : ''}`}>
+          </div>    
+          <div className={`${styles.indicator} ${styles.left} ${isMoving === 'left' ? styles.show : ''}`}>
+          </div>
+          <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-primary opacity-10 rounded-full transform rotate-45"></div>
         </div>
       </Draggable>
     </DndContext>

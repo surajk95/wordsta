@@ -13,7 +13,7 @@ export function Draggable(props: {children: React.ReactNode, status: string | nu
   
   return (
     <div
-      className={`${styles.draggable} ${props.status === 'pass' ? styles.pass : props.status === 'fail' ? styles.fail : ''}`}
+      className={`hover:shadow-xl ${styles.draggable} ${props.status === 'pass' ? styles.pass : props.status === 'fail' ? styles.fail : ''}`}
       ref={setNodeRef}
       style={style}
       {...listeners}

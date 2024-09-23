@@ -40,6 +40,11 @@ export default function useStore({ words, name }: { words: Word[], name: string 
   }, [words, sort, sortDirection]);
 
   const getNextIndex = useCallback(() => {
+    console.log('getNextIndex', currentIndex, words.length, Object.keys(learnedWords[name] || {}).length)
+    if(Object.keys(learnedWords[name] || {}).length === words.length-1) {
+      updateIndex(null)
+      return
+    }
     let newIndex = currentIndex === words.length - 1 ? 0 : currentIndex + 1
     if(!learnedWords[name]) {
       updateIndex(newIndex)
@@ -52,7 +57,7 @@ export default function useStore({ words, name }: { words: Word[], name: string 
       } else {
         newIndex = newIndex === words.length - 1 ? 0 : newIndex + 1
       }
-    } while(Object.keys(learnedWords[name]).length !== words.length)
+    } while(Object.keys(learnedWords[name] || {}).length < words.length)
   }, [currentIndex, learnedWords, name, words, processedWords, updateIndex])
 
   return { processedWords, getNextIndex }

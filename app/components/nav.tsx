@@ -11,9 +11,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import styles from "./nav.module.scss"
+import Controls from './controls'
 
 export default function Nav() {
   return (
+    <>
     <div className={styles.header}>
       <h1 className={styles.appTitle}>
         <Link href="/">Wordsta</Link>
@@ -33,6 +35,8 @@ export default function Nav() {
         </NavigationMenuList>
       </NavigationMenu>
     </div>
+    <Controls />
+    </>
   )
 }
 

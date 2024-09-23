@@ -5,6 +5,7 @@ import Nav from "./components/nav";
 import Controls from "./components/controls";
 import { ProgressUI } from "./components/progress";
 import { Toaster } from "@/components/ui/toaster"
+import Info from "./components/info";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Nav />
         {children}
-        
+        <Info />
         <Toaster />
       </body>
     </html>
