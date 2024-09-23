@@ -84,8 +84,8 @@
     max-width: 90%;
     height: 300px;
     border-radius: 10px;
-    border: 1px solid #ccc;
     transition: opacity 1s ease-in-out;
+    overflow: hidden;
     &.pass {
         transform: translateX(100vw);
         opacity: 0;

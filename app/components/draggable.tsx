@@ -1,6 +1,8 @@
 import React from 'react';
 import {useDraggable} from '@dnd-kit/core';
 import styles from './word.module.scss';
+import CardUi from './card';
+import { Card } from '@/components/ui/card';
 export function Draggable(props: {children: React.ReactNode, status: string | null}) {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
     id: 'draggable',
@@ -12,7 +14,7 @@ export function Draggable(props: {children: React.ReactNode, status: string | nu
 
   
   return (
-    <div
+    <Card
       className={`hover:shadow-xl ${styles.draggable} ${props.status === 'pass' ? styles.pass : props.status === 'fail' ? styles.fail : ''}`}
       ref={setNodeRef}
       style={style}
@@ -20,6 +22,6 @@ export function Draggable(props: {children: React.ReactNode, status: string | nu
       {...attributes}
     >
       {props.children}
-    </div>
+    </Card>
   );
 }

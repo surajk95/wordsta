@@ -46,12 +46,8 @@ export default function Info() {
               <p>The word will be added to your learned words. It will not be shown again (until you reset progress).</p>
             </li>
             <li className="mb-4">
-              <span className="font-bold">Tap / Click / Up Arrow</span> - <span className="text-blue-500">Show details</span>
+              <span className="font-bold">Tap / Click / Up Arrow / Down Arrow</span> - <span className="text-blue-500">Toggle meaning and examples</span>
               <p>You can also tap/click the card or press the Up Arrow to show/hide details.</p>
-            </li>
-            <li className="mb-4">
-              <span className="font-bold">Tap / Click / Down Arrow</span> - <span className="text-blue-500">Hide details</span>
-              <p>You can tap/click the card or press the Down Arrow to hide details.</p>
             </li>
           </ul>
         </p>
