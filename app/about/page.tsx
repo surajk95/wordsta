@@ -6,7 +6,7 @@ export default function About() {
     <div className="flex flex-col justify-center items-center h-screen">
       <Card className="max-w-2xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold text-center">Wordsta by fevertrip</CardTitle>
+          <CardTitle className="text-2xl font-semibold font-mono text-center">Wordsta by fevertrip</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
