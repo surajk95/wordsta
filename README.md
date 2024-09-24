@@ -1,3 +1,9 @@
+# Update 2024-09: We're so back
+### Try out the new web app [here](https://wordstaxyz.vercel.app/) (supports mobile view, swiping, progress tracking without an account, keyboard navigation etc)
+### Get the word lists [here](https://github.com/surajk95/wordsta/tree/master/app/lists)
+#
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
