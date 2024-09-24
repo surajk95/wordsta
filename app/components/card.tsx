@@ -77,7 +77,7 @@ function CardUi({
               transform: dec.rotation
             }}
           >
-            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" className="fill-foreground">
               {renderShape(dec.shape, dec.size)}
             </svg>
           </div>
