@@ -13,7 +13,7 @@ export default function About() {
             Wordsta is a word-learning application designed to enhance your English vocabulary.
           </p>
           <p>
-            Our goal is to help you improve your language skills efficiently, whether you're preparing for standardized tests like <b>GRE</b> or <b>TOEFL</b>, or simply aiming to expand your lexicon.
+            Our goal is to help you improve your language skills efficiently, whether you&apos;re preparing for standardized tests like <b>GRE</b> or <b>TOEFL</b>, or simply aiming to expand your lexicon.
           </p>
           <h3 className="text-xl font-semibold mt-6">Key Features</h3>
           <ul className="list-disc list-inside">
@@ -24,7 +24,7 @@ export default function About() {
             <li>Option to load random words for diverse learning</li>
           </ul>
           <p className="mt-6">
-            Whether you're a student preparing for exams or an enthusiast looking to broaden your vocabulary, Wordsta provides the tools you need to succeed in your language learning journey.
+            Whether you&apos;re a student preparing for exams or an enthusiast looking to broaden your vocabulary, Wordsta provides the tools you need to succeed in your language learning journey.
           </p>
         </CardContent>
       </Card>

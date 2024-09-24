@@ -35,7 +35,7 @@ function Info() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">Swipe left / Left Arrow</h3>
-            <p className="text-sm"><span className="font-medium text-red-500 dark:text-red-400">I don't know this word</span></p>
+            <p className="text-sm"><span className="font-medium text-red-500 dark:text-red-400">I don&apos;t know this word</span></p>
             <p className="text-xs">The word will be shown again next time you go through the list.</p>
           </div>
 

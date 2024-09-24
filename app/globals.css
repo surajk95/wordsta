@@ -48,12 +48,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {
@@ -88,6 +85,7 @@ a {
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --background: 0 0% 0%;

@@ -1,7 +1,4 @@
 {
-    "editor.formatOnSave": false,
-    "editor.tabSize": 2
-    // "files.associations": {
-    //     "*.css": "postcss"
-    // }
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
 }

@@ -7,13 +7,13 @@ export default function Redirect() {
   useLayoutEffect(() => {
     let currentList = localStorage.getItem('currentList')
 
-    if(!currentList) {
+    if (!currentList) {
       currentList = 'high-frequency-gre'
     }
-    if(currentList) {
+    if (currentList) {
       router.push(`/${currentList}`)
     }
-  }, [])
-  
+  }, [router])
+
   return null
 }
