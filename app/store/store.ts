@@ -3,20 +3,20 @@ import { ConfigType, defaultConfig } from '../config/default-config'
 import { Word } from '../components/word'
 
 interface AppState {
-    name: string,
-    currentIndex: number,
-    showDetails: boolean,
-    updateIndex: Function,
-    setShowDetails: Function,
-    config: ConfigType,
-    initStore: Function,
-    init: boolean,
-    learnedWords: { [key: string]: { [key: string]: boolean } },
-    setConfig: Function,
-    sort: string,
-    sortDirection: string,
-    updateLearnedWords: Function,
-    words: Word[],
+  name: string,
+  currentIndex: number,
+  showDetails: boolean,
+  updateIndex: Function,
+  setShowDetails: Function,
+  config: ConfigType,
+  initStore: Function,
+  init: boolean,
+  learnedWords: { [key: string]: { [key: string]: boolean } },
+  setConfig: Function,
+  sort: string,
+  sortDirection: string,
+  updateLearnedWords: Function,
+  words: Word[],
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -54,26 +54,26 @@ export const useAppStore = create<AppState>((set) => ({
   setConfig: (key: string, value: any) => set((state: any) => {
     const newConfig = { ...state.config, [key]: value }
     localStorage.setItem('config', JSON.stringify(newConfig))
-    switch(key) {
-    case 'showDetails':
-      newConfig.showDetails = value
-      return { config: newConfig, showDetails: value }
-    case 'sort':
-      newConfig.sort = value
-      return { config: newConfig, sort: value, currentIndex: -1 }
-    case 'sortDirection':
-      newConfig.sortDirection = value
-      return { config: newConfig, sortDirection: value, currentIndex: -1 }
-    case 'reset':
-      localStorage.removeItem(`learnedWords-${value}`)
-      newConfig.learnedWords = {
-        ...newConfig.learnedWords,
-        [value]: {}
+    switch (key) {
+      case 'showDetails':
+        newConfig.showDetails = value
+        return { config: newConfig, showDetails: value }
+      case 'sort':
+        newConfig.sort = value
+        return { config: newConfig, sort: value, currentIndex: -1 }
+      case 'sortDirection':
+        newConfig.sortDirection = value
+        return { config: newConfig, sortDirection: value, currentIndex: -1 }
+      case 'reset':
+        localStorage.removeItem(`learnedWords-${value}`)
+        newConfig.learnedWords = {
+          ...newConfig.learnedWords,
+          [value]: {}
+        }
+        return { config: newConfig, learnedWords: newConfig.learnedWords, currentIndex: -1 }
+      default: {
+        return { config: newConfig }
       }
-      return { config: newConfig, learnedWords: newConfig.learnedWords, currentIndex: -1 }
-    default: {
-      return { config: newConfig }
-    }
     }
   }),
   updateLearnedWords: (word: string, name: string) => set(state => {
