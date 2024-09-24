@@ -31,6 +31,7 @@ function Info() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Controls</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
         <div className="space-y-6">
           <div className="space-y-2">
