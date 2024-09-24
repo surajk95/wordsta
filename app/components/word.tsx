@@ -12,6 +12,7 @@ import styles from './word.module.scss'
 import { useAppStore } from '../store/store'
 import { useShallow } from 'zustand/react/shallow'
 import useStore from '../store/use-store'
+import { toast } from '@/hooks/use-toast'
 
 export interface Word {
   word: string,
@@ -85,8 +86,20 @@ export default function Word({ words, name }: Props) {
     switch (direction) {
       case 'up': setLocalShowDetails(true); break;
       case 'down': setLocalShowDetails(false); break;
-      case 'right': pass(); break;
-      case 'left': nextWord(); break;
+      case 'right': {
+        toast({
+          title: 'Word learned',
+          duration: 1000,
+        })
+        pass(); break;
+      }
+      case 'left': {
+        toast({
+          title: 'Word ignored',
+          duration: 1000,
+        })
+        nextWord(); break;
+      }
       default: break;
     }
   }, [nextWord, pass])
@@ -157,8 +170,6 @@ export default function Word({ words, name }: Props) {
       </div>
     )
   }
-
-  // console.log('status', status, currentIndex, currentWord)
 
   return (
     <DndContext

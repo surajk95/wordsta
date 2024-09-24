@@ -80,7 +80,7 @@ export default function Controls() {
           </DialogHeader>
           <DialogDescription />
           <div className="grid gap-4 py-4">
-            <div className="flex items-center space-x-2 my-5">
+            <div className="flex items-center space-x-2 my-0">
               <Checkbox
                 id="showDetails"
                 checked={showDetails}

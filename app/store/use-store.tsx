@@ -40,7 +40,6 @@ export default function useStore({ words, name }: { words: Word[], name: string 
   }, [words, sort, sortDirection]);
 
   const getNextIndex = useCallback(() => {
-    console.log('getNextIndex', currentIndex, words.length, Object.keys(learnedWords[name] || {}).length)
     if(Object.keys(learnedWords[name] || {}).length === words.length-1) {
       updateIndex(null)
       return

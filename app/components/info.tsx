@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,7 +13,7 @@ import {
 import { Info as InfoIcon } from "lucide-react"
 import styles from "./word.module.scss"
 
-export default function Info() {
+function Info() {
   const [open, setOpen] = useState(false)
 
   return (
@@ -32,21 +32,21 @@ export default function Info() {
         <DialogHeader>
           <DialogTitle>Controls</DialogTitle>
         </DialogHeader>
-        <div className="space-y-6 text-gray-600 dark:text-gray-300">
+        <div className="space-y-6">
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Swipe left / Left Arrow</h3>
+            <h3 className="text-lg font-semibold">Swipe left / Left Arrow</h3>
             <p className="text-sm"><span className="font-medium text-red-500 dark:text-red-400">I don't know this word</span></p>
             <p className="text-xs">The word will be shown again next time you go through the list.</p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Swipe right / Right Arrow</h3>
+            <h3 className="text-lg font-semibold">Swipe right / Right Arrow</h3>
             <p className="text-sm"><span className="font-medium text-green-500 dark:text-green-400">I know this word</span></p>
             <p className="text-xs">The word will be added to your learned words. It will not be shown again (until you reset progress).</p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Tap / Click / Up Arrow / Down Arrow</h3>
+            <h3 className="text-lg font-semibold">Tap / Click / Up Arrow / Down Arrow</h3>
             <p className="text-sm"><span className="font-medium text-blue-500 dark:text-blue-400">Toggle meaning and examples</span></p>
             <p className="text-xs">You can also tap/click the card or press the Up Arrow to show/hide details.</p>
           </div>
@@ -55,3 +55,5 @@ export default function Info() {
     </Dialog>
   )
 }
+
+export default React.memo(Info)
