@@ -39,9 +39,9 @@ export default function Word({ words, name }: Props) {
     },
   })
   const touchSensor = useSensor(TouchSensor, {
-    // Press delay of 250ms, with tolerance of 10px of movement
+    // Press delay of 0ms, with tolerance of 10px of movement
     activationConstraint: {
-      delay: 250,
+      delay: 0,
       tolerance: 10,
     },
   })
